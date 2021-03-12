@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 848409ee8ba454f42a5ddff137688a27, type: 3}
+  m_Name: ReferenceImageLibrary
+  m_EditorClassIdentifier: 
+  m_GuidLow: 5472205533462482050
+  m_GuidHigh: 6738790883381569456
+  m_Images:
+  - m_SerializedGuid:
+      m_GuidLow: 4926821965637854916
+      m_GuidHigh: 16375064472040017839
+    m_SerializedTextureGuid:
+      m_GuidLow: 11620535592387800092
+      m_GuidHigh: 5237489021710484027
+    m_Size: {x: 0.13333333, y: 0.16}
+    m_SpecifySize: 1
+    m_Name: dress-shirt
+    m_Texture: {fileID: 0}
