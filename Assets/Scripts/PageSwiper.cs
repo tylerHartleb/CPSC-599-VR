@@ -7,30 +7,48 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
 {
     private Vector3 panelLocation;
     public Canvas mainCanvas;
+    public GameObject parentElement;
     public float percentThreshold = 0.2f;
     public float easing = 0.5f;
     public float width;
     public int totalPages;
     private int currentPage = 1;
+    private float localScale_x;
 
     // Start is called before the first frame update
     void Start()
     {
         panelLocation = transform.position;
         RectTransform rt = mainCanvas.transform.GetComponent<RectTransform>();
-        width = rt.sizeDelta.x * rt.localScale.x;
+        if (parentElement != null)
+        {
+            Debug.Log(parentElement.transform.localScale.x);
+            localScale_x = parentElement.transform.localScale.x * rt.localScale.x;
+        } else
+        {
+            localScale_x = rt.localScale.x;
+        }
+        width = rt.sizeDelta.x * localScale_x;
         Debug.Log(width);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void UpdatePos()
+    {
+        panelLocation = transform.position;
+        RectTransform rt = mainCanvas.transform.GetComponent<RectTransform>();
+        width = rt.sizeDelta.x * rt.localScale.x;
     }
 
     public void OnDrag(PointerEventData data)
     {
-        float difference = (data.pressPosition.x / 100) - (data.position.x / 100);
+        RectTransform rt = mainCanvas.transform.GetComponent<RectTransform>();
+        float difference = (data.pressPosition.x * localScale_x) - (data.position.x * localScale_x);
         Debug.Log(difference);
         transform.position = panelLocation - new Vector3(difference, 0, 0);
     }

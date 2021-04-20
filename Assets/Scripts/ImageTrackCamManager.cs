@@ -24,6 +24,7 @@ public class ImageTrackCamManager : MonoBehaviour
     }
 
     ARTrackedImageManager m_TrackedImageManager;
+    PageSwiper swiper_script;
 
     void Awake()
     {
@@ -45,6 +46,14 @@ public class ImageTrackCamManager : MonoBehaviour
         // Set canvas camera
         var canvas = trackedImage.GetComponentInChildren<Canvas>();
         canvas.worldCamera = worldSpaceCanvasCamera;
+        //Find the GameObject
+        GameObject obj = GameObject.Find("swiper");
+
+        //Get script attached to it
+        swiper_script = obj.GetComponent<PageSwiper>();
+
+        //Call the function
+        swiper_script.UpdatePos();
     }
 
     void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
