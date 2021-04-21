@@ -1414,6 +1414,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCanvas: {fileID: 2718003043094288506}
+  parentElement: {fileID: 0}
+  thisEl: {fileID: 0}
   percentThreshold: 0.2
   easing: 0.5
   width: 0
