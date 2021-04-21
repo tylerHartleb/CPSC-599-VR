@@ -51,15 +51,17 @@ public class ImageTrackCamManager : MonoBehaviour
 
         //Get script attached to it
         swiper_script = obj.GetComponent<PageSwiper>();
+        float scale = trackedImage.size.x;
 
         //Call the function
-        swiper_script.UpdatePos();
+        swiper_script.UpdatePos(scale);
     }
 
     void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs eventArgs)
     {
         foreach (var trackedImage in eventArgs.added)
         {
+            trackedImage.transform.localScale = new Vector3(0.002f, 0.002f, 0.002f);
             UpdateInfo(trackedImage);
         }
         foreach (var trackedImage in eventArgs.updated)

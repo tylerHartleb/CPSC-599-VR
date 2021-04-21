@@ -8,7 +8,8 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
     private Vector3 panelLocation;
     public Canvas mainCanvas;
     public GameObject parentElement;
-    public float percentThreshold = 0.2f;
+    public GameObject thisEl;
+    public float percentThreshold = 0.0005f;
     public float easing = 0.5f;
     public float width;
     public int totalPages;
@@ -29,7 +30,7 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
             localScale_x = rt.localScale.x;
         }
         width = rt.sizeDelta.x * localScale_x;
-        Debug.Log(width);
+        //Debug.Log(width);
     }
 
     // Update is called once per frame
@@ -38,25 +39,25 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
 
     }
 
-    public void UpdatePos()
+    public void UpdatePos(float scale)
     {
-        panelLocation = transform.position;
         RectTransform rt = mainCanvas.transform.GetComponent<RectTransform>();
-        width = rt.sizeDelta.x * rt.localScale.x;
+        //localScale_x = localScale_x / scale;
+        width = rt.sizeDelta.x * localScale_x;
     }
 
     public void OnDrag(PointerEventData data)
     {
         RectTransform rt = mainCanvas.transform.GetComponent<RectTransform>();
-        float difference = (data.pressPosition.x * localScale_x) - (data.position.x * localScale_x);
-        Debug.Log(difference);
-        transform.position = panelLocation - new Vector3(difference, 0, 0);
+        float difference = (data.pressPosition.x * localScale_x) - (data.position.x * localScale_x) * 1.25f;
+        //Debug.Log(difference);
+        thisEl.transform.position = panelLocation - new Vector3(difference, 0, 0);
     }
 
     public void OnEndDrag(PointerEventData data)
     {
-        float percentage = (data.pressPosition.x - data.position.x) / width;
-        Debug.Log(percentage);
+        float percentage = ((data.pressPosition.x * localScale_x) - (data.position.x * localScale_x) / width) * 100;
+        //Debug.Log(percentage);
         if(Mathf.Abs(percentage) >= percentThreshold)
         {
             Vector3 newLocation = panelLocation;
@@ -68,16 +69,15 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
             {
                 currentPage--;
                 newLocation += new Vector3(width, 0, 0);
-            } else if (percentage < 0 && currentPage > 2)
-            {
-                currentPage--;
-                newLocation += new Vector3(width, 0, 0);
-            }
+            } 
             StartCoroutine(SmoothMove(transform.position, newLocation, easing));
             panelLocation = newLocation;
+            //Debug.Log(panelLocation);
         } else
         {
             StartCoroutine(SmoothMove(transform.position, panelLocation, easing));
+            //transform.position = panelLocation;
+            //Debug.Log(panelLocation);
         }
     }
 
@@ -87,7 +87,7 @@ public class PageSwiper : MonoBehaviour, IDragHandler, IEndDragHandler
         while (t <= 1.0)
         {
             t += Time.deltaTime / seconds;
-            transform.position = Vector3.Lerp(startpos, endpos, Mathf.SmoothStep(0f, 1f, t));
+            thisEl.transform.position = Vector3.Lerp(startpos, endpos, Mathf.SmoothStep(0f, 1f, t));
             yield return null;
         }
     }
