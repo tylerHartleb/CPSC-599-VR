@@ -14,4 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GuidLow: 5444122982752865879
   m_GuidHigh: 4838478754079572655
-  m_ReferenceObjects: []
+  m_ReferenceObjects:
+  - m_GuidLow: 5326997798692210464
+    m_GuidHigh: 12105807005088466623
+    m_Name: plant
+    m_Entries:
+    - {fileID: -6831329414088302235, guid: c243dbfa544c747879a4df3d25cb757c, type: 3}

@@ -114,7 +114,7 @@
     },
     "com.unity.xr.arkit": {
       "version": "4.0.12",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.xr.arsubsystems": "4.0.12",
